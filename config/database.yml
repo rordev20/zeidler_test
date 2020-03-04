@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: zeidler_development
+  username: root
+  password: root
+
+test:
+  <<: *default
+  database: zeidler_test
+  username: root
+  password: root
+
+production:
+  <<: *default
+  database: <%= ENV['ZEIDLER_DATABASE'] %>
+  username: <%= ENV['ZEIDLER_DATABASE_USERNAME'] %>
+  password: <%= ENV['ZEIDLER_DATABASE_PASSWORD'] %>
