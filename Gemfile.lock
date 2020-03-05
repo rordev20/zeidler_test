@@ -56,6 +56,10 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2)
+    acts_as_paranoid (0.6.3)
+      activerecord (>= 4.2, < 7.0)
+      activesupport (>= 4.2, < 7.0)
+    bcrypt (3.1.13)
     bootsnap (1.4.6)
       msgpack (~> 1.0)
     builder (3.2.4)
@@ -68,6 +72,9 @@ GEM
       activesupport (>= 4.2.0)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
+    jbuilder (2.10.0)
+      activesupport (>= 5.0.0)
+    jwt (2.2.1)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -149,8 +156,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_paranoid
+  bcrypt (~> 3.1.7)
   bootsnap (>= 1.4.2)
   byebug
+  jbuilder (~> 2.7)
+  jwt
   listen (>= 3.0.5, < 3.2)
   pg (~> 0.15)
   puma (~> 4.1)
