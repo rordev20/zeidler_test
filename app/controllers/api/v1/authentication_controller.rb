@@ -1,4 +1,4 @@
-class AuthenticationController < ApplicationController
+class Api::V1::AuthenticationController < ApplicationController
   before_action :authorize_request, except: :login
 
   # POST /auth/login
@@ -7,10 +7,10 @@ class AuthenticationController < ApplicationController
     if @user&.authenticate(params[:password])
       token = JsonWebToken.encode(user_id: @user.id)
       time = Time.now + 24.hours.to_i
-      render json: { token: token, exp: time.strftime("%m-%d-%Y %H:%M"),
-                     email: @user.email }, status: :ok
+      render json: { data: { token: token, exp: time.strftime("%m-%d-%Y %H:%M"),
+                     email: @user.email }, message: I18n.t('global.success'), status: 200}
     else
-      render json: { error: 'unauthorized' }, status: :unauthorized
+      render json: { error: 'unauthorized', message: I18n.t('global.failure'), status: 401}
     end
   end
 

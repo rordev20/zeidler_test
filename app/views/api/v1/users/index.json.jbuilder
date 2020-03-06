@@ -1,5 +1,5 @@
 json.status 200
-json.message "success"
+json.message I18n.t('global.success')
 json.data do
   json.users @users.each do |user|
     json.id user.id

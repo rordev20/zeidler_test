@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class Api::V1::UsersController < ApplicationController
   before_action :authorize_request, except: :create
   before_action :find_user, except: %i[create index]
 
@@ -16,24 +16,11 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      render json: @user, status: :created
+      render json: { data: {user: @user}, status: :created, message: I18n.t('global.success')}
     else
-      render json: { errors: @user.errors.full_messages },
+      render json: { errors: @user.errors.full_messages, message: I18n.t('global.failure') },
              status: :unprocessable_entity
     end
-  end
-
-  # PUT /users/{username}
-  def update
-    unless @user.update(user_params)
-      render json: { errors: @user.errors.full_messages },
-             status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /users/{username}
-  def destroy
-    @user.destroy
   end
 
   private
@@ -45,8 +32,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.permit(
-      :avatar, :first_name, :last_name, :email, :password, :password_confirmation, :age, :gender, :country_id
-    )
+    params[:user].permit(:first_name, :last_name, :email, :password, :password_confirmation, :age, :gender, :country_id)
   end
 end
